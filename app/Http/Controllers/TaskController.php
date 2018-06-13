@@ -14,17 +14,18 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks=Task::all();
+        return view('task.index',compact('tasks'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new task
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('task.create');
     }
 
     /**
@@ -35,42 +36,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Task::create($request->all());
+        return redirect('task');
     }
 
     /**
-     * Display the specified resource.
+     * Display the single task
      *
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function show(Task $task)
     {
-        //
+        return view('task.show',compact('task'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Task $task)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +61,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect('task');
     }
 }

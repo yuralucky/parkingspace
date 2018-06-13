@@ -6,7 +6,7 @@
                 <h3>ParkingSpace</h3>
             </div>
             <div class="pull-right">
-                <a href="{{route('tag.create')}}" class="btn btn-info">Create new tag</a>
+                <a href="{{route('task.create')}}" class="btn btn-info">Create new task</a>
             </div>
         </div>
     </div>
@@ -19,26 +19,25 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>No</th>
             <th>Name</th>
+            <th>Description</th>
             <th>Date create</th>
             <th width="280px">Action</th>
         </tr>
 
-            <tr>
-                <td>{{$tag->id}}</td>
-                <td>{{$tag->name}}</td>
-                <td>{{$tag->created_at}}</td>
-                <td>
-                    <form action="{{route('tag.destroy',$tag->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
+        <tr>
+            <td>{{$task->name}}</td>
+            <td>{{$task->description}}</td>
+            <td>{{$task->created_at}}</td>
+            <td>
+                <form action="{{route('task.destroy',$task->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete task</button>
+                </form>
+            </td>
+        </tr>
 
     </table>
-
 
 @endsection

@@ -9,6 +9,11 @@
 </head>
 <body>
 <div class="container">
+    <a href="/task" class="btn btn-secondary btn-block">Task</a>
+    <a href="/tag" class="btn btn-secondary btn-block">Tag</a>
+    <hr>
+    <h2 class="text-center">ParkingSpace</h2>
+    <hr>
     @yield('content')
 </div>
 
