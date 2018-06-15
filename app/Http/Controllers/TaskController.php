@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('task.create');
+        $tags=Tag::pluck('name','id');
+        return view('task.create',compact('tags'));
     }
 
     /**
@@ -36,7 +38,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Task::create($request->all());
+
+        $task=Task::create($request->all());
+        $task->tags()->attach($request->input('tags'));
         return redirect('task');
     }
 

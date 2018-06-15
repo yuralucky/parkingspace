@@ -12,4 +12,13 @@ class Tag extends Model
     protected $fillable=['name'];
 
     public $timestamps=false;
+
+    /**
+     * Tag has many tasks
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tasks(){
+        return $this->belongsToMany('App\Task')->withTimestamps();
+    }
 }

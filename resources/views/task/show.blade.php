@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('start')
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -21,14 +21,16 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Date create</th>
+            <th>Tags</th>
             <th width="280px">Action</th>
         </tr>
 
         <tr>
             <td>{{$task->name}}</td>
             <td>{{$task->description}}</td>
-            <td>{{$task->created_at}}</td>
+            <td>@foreach($task->tags as $tas)
+                    {{$tas->name}}
+                @endforeach</td>
             <td>
                 <form action="{{route('task.destroy',$task->id)}}" method="post">
                     @csrf
@@ -37,6 +39,7 @@
                 </form>
             </td>
         </tr>
+
 
     </table>
 

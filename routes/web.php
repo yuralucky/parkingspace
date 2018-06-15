@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
-Route::resource('tag','TagController');
-Route::resource('task','TaskController');
+Route::resource('tag','TagController')->middleware('auth');
+Route::resource('task','TaskController')->middleware('auth');
+Auth::routes();
+
+

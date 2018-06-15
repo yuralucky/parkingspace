@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -26,7 +27,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tag.create');
+        $tasks=Task::pluck('name','id');
+        return view('tag.create',compact('tasks'));
     }
 
     /**
@@ -37,12 +39,9 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $input['created_at']=Carbon::now()->format('d M ');
 
-        Tag::create([
-            'name'=>$request['name'],
-            'created_at'=>$input['created_at']
-        ]);
+        $tag= Tag::create($request->all());
+        $tag->tasks()->attach($request->input('tasks'));
         return redirect('tag');
     }
 
@@ -56,7 +55,6 @@ class TagController extends Controller
 
         return view('tag.show', compact('tag'));
     }
-
 
 
     /**

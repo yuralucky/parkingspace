@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('start')
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -12,46 +12,32 @@
     </div>
 
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-
-    <form action="{{ route('task.store') }}" method="POST">
-        @csrf'
+    {{Form::open(['action'=>'TaskController@store','method'=>'post'])}}
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Name">
+                    {{Form::label('Name')}}
+                    {{Form::text('name','',['class'=>'form-control'])}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Description</strong>
-                    <input type="text" name="description" class="form-control" placeholder="Description">
+                   {{Form::label('Description')}}
+                    {{Form::text('description','',['class'=>'form-control'])}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Data</strong>
-                    <input type="date" name="created_at"  class="form-control" placeholder="{{Carbon\Carbon::now()}}">
-                </div>
+                {{Form::label('List of tags')}}
+                {{Form::select('tags[]',$tags,'',['class'=>'form-control','multiple'])}}
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary btn-block">Add new tag</button>
+                {{Form::submit('Add new tag',['class'=>'btn btn-primary btn-block'])}}
             </div>
         </div>
 
 
-    </form>
+    {{Form::close()}}
 
 @endsection

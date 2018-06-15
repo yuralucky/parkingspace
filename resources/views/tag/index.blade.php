@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('start')
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -20,26 +20,25 @@
     <table class="table table-bordered">
         <tr>
             <th>Name</th>
-            <th>Date create</th>
+            <th>Tasks</th>
             <th width="280px">Action</th>
         </tr>
         @foreach($tags as $tag)
             <tr>
 
                 <td>{{$tag->name}}</td>
-                <td>{{$tag->created_at}}</td>
+                <td>@foreach($tag->tasks as $tag)
+                        {{$tag->name}}
+                @endforeach
+                </td>
                 <td>
-                    <form action="{{route('tag.destroy',$tag->id)}}" method="post">
+                    {{Form::open(['action'=>['TagController@destroy',$tag->id],'method'=>'DELETE'])}}
                         <a href="{{route('tag.show',$tag->id)}}" class="btn btn-info">Show</a>
-
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                        {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+                    {{Form::close()}}
                 </td>
             </tr>
         @endforeach
     </table>
-    {{--{!!tags->links()  !!}--}}
 
 @endsection
